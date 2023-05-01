@@ -2,9 +2,6 @@
 using ApiProdutos.Entities;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ApiProdutos.Controllers
 {
@@ -24,21 +21,23 @@ namespace ApiProdutos.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            try {
+            try
+            {
                 var produtos = _dbcontext.Produtos.ToList();
                 return Ok(produtos);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
-           
+
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            try {
+            try
+            {
                 var produto = _dbcontext.Produtos.Find(id);
 
                 if (produto == null)
@@ -52,13 +51,14 @@ namespace ApiProdutos.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-            
+
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Produto produto)
         {
-            try {
+            try
+            {
                 if (produto == null)
                 {
                     return BadRequest();
@@ -75,11 +75,11 @@ namespace ApiProdutos.Controllers
 
                 return CreatedAtAction(nameof(Get), new { id = produto.Id }, produto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
-            
+
         }
 
         [HttpPut("{id}")]
@@ -115,7 +115,7 @@ namespace ApiProdutos.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-           
+
         }
 
         [HttpDelete("{id}")]
@@ -137,11 +137,11 @@ namespace ApiProdutos.Controllers
 
                 return NoContent();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
-            
+
         }
 
 
