@@ -1,5 +1,6 @@
 ﻿using ApiProdutos.Data;
 using ApiProdutos.Entities;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,83 +14,134 @@ namespace ApiProdutos.Controllers
     public class ProdutosController : ControllerBase
     {
         private readonly ApplicationDbContext _dbcontext;
-        public ProdutosController(ApplicationDbContext dbcontext)
+        private readonly IValidator<Produto> _produtoValidator;
+        public ProdutosController(ApplicationDbContext dbcontext, IValidator<Produto> produtoValidator)
         {
             _dbcontext = dbcontext;
+            _produtoValidator = produtoValidator;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var produtos = _dbcontext.Produtos.ToList();
-            return Ok(produtos);
+            try {
+                var produtos = _dbcontext.Produtos.ToList();
+                return Ok(produtos);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+           
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var produto = _dbcontext.Produtos.Find(id);
+            try {
+                var produto = _dbcontext.Produtos.Find(id);
 
-            if (produto == null)
-            {
-                return NotFound();
+                if (produto == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(produto);
             }
-
-            return Ok(produto);
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Produto produto)
         {
-            if (produto == null)
-            {
-                return BadRequest();
+            try {
+                if (produto == null)
+                {
+                    return BadRequest();
+                }
+                var validationResult = _produtoValidator.Validate(produto);
+
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
+                _dbcontext.Produtos.Add(produto);
+                _dbcontext.SaveChanges();
+
+                return CreatedAtAction(nameof(Get), new { id = produto.Id }, produto);
             }
-
-            _dbcontext.Produtos.Add(produto);
-            _dbcontext.SaveChanges();
-
-            return CreatedAtAction(nameof(Get), new { id = produto.Id }, produto);
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Produto produto)
         {
-            if (produto == null || produto.Id != id)
+            try
             {
-                return BadRequest();
-            }
-            var dbProduto = _dbcontext.Produtos.Find(id);
+                if (produto == null || produto.Id != id)
+                {
+                    return BadRequest();
+                }
+                var dbProduto = _dbcontext.Produtos.Find(id);
 
-            if (dbProduto == null)
+                if (dbProduto == null)
+                {
+                    return NotFound();
+                }
+                var validationResult = _produtoValidator.Validate(produto);
+
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
+                dbProduto.Nome = produto.Nome;
+                dbProduto.Preco = produto.Preco;
+
+                _dbcontext.SaveChanges();
+
+                return NoContent();
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, ex.Message);
             }
-
-            dbProduto.Nome = produto.Nome;
-            dbProduto.Preco = produto.Preco;
-
-            _dbcontext.SaveChanges();
-
-            return NoContent();
+           
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var dbProduto = _dbcontext.Produtos.Find(id);
-
-            if (dbProduto == null)
+            try
             {
-                return NotFound();
+                var dbProduto = _dbcontext.Produtos.Find(id);
+
+                if (dbProduto == null)
+                {
+                    return NotFound();
+                }
+
+                _dbcontext.Produtos.Remove(dbProduto);
+                _dbcontext.SaveChanges();
+
+
+
+                return NoContent();
             }
-
-            _dbcontext.Produtos.Remove(dbProduto);
-            _dbcontext.SaveChanges();
-
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
             
-
-            return NoContent();
         }
 
 
