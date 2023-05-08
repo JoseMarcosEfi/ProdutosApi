@@ -15,7 +15,7 @@
           }
         }
       },
-      "Flunt/2.0.5": {
+      "Flunt/2.0.4": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Flunt.dll": {}
@@ -1280,14 +1280,14 @@
         "lib/netstandard2.1/FluentValidation.xml"
       ]
     },
-    "Flunt/2.0.5": {
-      "sha512": "CMgq8FUYjkHzyZT3PhkUwZyy79mudON+EL4b0SAT7BfIOJ2CNypwnbdA0cPHAM2CYQfO2L8ubNJCiBHQOIv2pA==",
+    "Flunt/2.0.4": {
+      "sha512": "0hBUXlsxLH2vsp3KGbRWp4nVqdn6XVuqUm8uW3C2vn8hVIspC1A5YKNQNP9jOGXFZgmKFUa3AUAQRxeWOYlZdg==",
       "type": "package",
-      "path": "flunt/2.0.5",
+      "path": "flunt/2.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "flunt.2.0.5.nupkg.sha512",
+        "flunt.2.0.4.nupkg.sha512",
         "flunt.nuspec",
         "icon.png",
         "lib/netstandard2.0/Flunt.dll"
@@ -3920,7 +3920,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "FluentValidation >= 11.5.2",
-      "Flunt >= 2.0.5",
+      "Flunt >= 2.0.4",
       "Microsoft.EntityFrameworkCore >= 6.0.16",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.16",
       "Newtonsoft.Json >= 13.0.3",
@@ -3982,7 +3982,7 @@
           },
           "Flunt": {
             "target": "Package",
-            "version": "[2.0.5, )"
+            "version": "[2.0.4, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",

@@ -40,3 +40,6 @@ C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\
 C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\obj\Debug\net6.0\ApiProdutos.pdb
 C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\obj\Debug\net6.0\ApiProdutos.genruntimeconfig.cache
 C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\obj\Debug\net6.0\ref\ApiProdutos.dll
+C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\bin\Debug\net6.0\Flunt.dll
+C:\Users\VOTOGAMES\OneDrive\Documentos\workspace\ws-produtosApiCrud\ApiProdutos\bin\Debug\net6.0\Newtonsoft.Json.dll

@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "LXnfULKT4UKg8jZlJv5Scpr/PPtII6xINS8sRArKZZcyRIoqDo16xMpsV5DLoMD0Pyy211Y4726aRqZZoWhGVA==",
+  "dgSpecHash": "QIBePOq9e+GbCm702c+9J4v/xgNixbM+x2LXSR4D5mvNN7f/3Mt+DKpwTOGHd4T7XVALyuhuuKHlgTGKh47hGg==",
   "success": true,
   "projectFilePath": "C:\\Users\\VOTOGAMES\\OneDrive\\Documentos\\workspace\\ws-produtosApiCrud\\ApiProdutos\\ApiProdutos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\VOTOGAMES\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
-    "C:\\Users\\VOTOGAMES\\.nuget\\packages\\flunt\\2.0.5\\flunt.2.0.5.nupkg.sha512",
+    "C:\\Users\\VOTOGAMES\\.nuget\\packages\\flunt\\2.0.4\\flunt.2.0.4.nupkg.sha512",
     "C:\\Users\\VOTOGAMES\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\VOTOGAMES\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.16\\microsoft.entityframeworkcore.6.0.16.nupkg.sha512",
     "C:\\Users\\VOTOGAMES\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.16\\microsoft.entityframeworkcore.abstractions.6.0.16.nupkg.sha512",
