@@ -9,6 +9,7 @@ namespace ApiProdutos.Entities.Validations
     {
 
         private readonly HttpClient _httpClient;
+
         public async Task<bool> ValidarCep(Cliente cliente, string cep)
         {
             try
@@ -33,7 +34,9 @@ namespace ApiProdutos.Entities.Validations
                 cliente.Bairro = result.bairro;
                 cliente.Cidade = result.localidade;
                 cliente.Estado = result.uf;
+
                 return true;
+                
             }
             catch (HttpRequestException ex)
             {
@@ -43,17 +46,18 @@ namespace ApiProdutos.Entities.Validations
             {
                 throw new Exception("Erro ao validar CEP", ex);
             }
-            return false;
+            ;
         }
 
-
+        //bug a resolver
         private bool ValidarCpf(string cpf)
         {
             try
             {
-                //Verifica se o cpf é nulo ou vazio
-                if (string.IsNullOrEmpty(cpf))
-                    return false;
+                
+                 //Verifica se o cpf é nulo ou vazio
+                 if (string.IsNullOrEmpty(cpf))
+                        return false;         
                 //Remove caracteres não numéricos do CPF
                 var cpfNumeros = Regex.Replace(cpf, @"[^\d]", string.Empty);
 
@@ -95,13 +99,13 @@ namespace ApiProdutos.Entities.Validations
 
         public ClienteValidator()
         {
-            _httpClient = new HttpClient();
 
+            _httpClient = new HttpClient();
             RuleFor(cliente => cliente.Cpf)
                 .NotNull()
-                .WithMessage("CPF é obrigatório")
-                .Must(ValidarCpf)
-                .WithMessage("CPF inválido");
+                .WithMessage("CPF é obrigatório");
+                //.Must(ValidarCpf)
+                //.WithMessage("CPF inválido");
 
             RuleFor(cliente => cliente.Nome)
                 .NotNull()

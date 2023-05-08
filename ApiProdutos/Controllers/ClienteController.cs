@@ -23,7 +23,10 @@ namespace ApiProdutos.Controllers
         {
             try
             {
-                var clientes = _dbcontext.Clientes.ToList();
+                var clientes = _dbcontext.Clientes
+                    .Select(c => new {c.Nome, c.Email})
+                    .ToList();
+
                 return Ok(clientes);
             }
             catch (Exception ex)
@@ -34,11 +37,14 @@ namespace ApiProdutos.Controllers
         }
 
         [HttpGet("{cpf}")]
-        public IActionResult Get(int cpf)
+        public IActionResult Get(string cpf)
         {
             try
             {
-                var cliente = _dbcontext.Clientes.Find(cpf);
+                var cliente = _dbcontext.Clientes.
+                    Where(c => c.Cpf == cpf)
+                    .Select(c => new { c.Nome, c.Cep, c.Cidade })
+                    .SingleOrDefault();
 
                 if (cliente == null)
                 {
@@ -55,7 +61,7 @@ namespace ApiProdutos.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Cliente cliente)
+        public async Task<IActionResult> Post([FromBody] Cliente cliente)
         {
             try
             {
@@ -63,7 +69,7 @@ namespace ApiProdutos.Controllers
                 {
                     return BadRequest();
                 }
-                var validationResult = _clienteValidator.Validate(cliente);
+                var validationResult = await _clienteValidator.ValidateAsync(cliente);
 
                 if (!validationResult.IsValid)
                 {
@@ -71,7 +77,7 @@ namespace ApiProdutos.Controllers
                 }
 
                 _dbcontext.Clientes.Add(cliente);
-                _dbcontext.SaveChanges();
+                await _dbcontext.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(Get), new { cpf = cliente.Cpf }, cliente);
             }
@@ -83,7 +89,7 @@ namespace ApiProdutos.Controllers
         }
 
         [HttpPut("{cpf}")]
-        public IActionResult Put(string cpf, [FromBody] Cliente cliente)
+        public async Task<IActionResult> Put(string cpf, [FromBody] Cliente cliente)
         {
             try
             {
@@ -97,7 +103,7 @@ namespace ApiProdutos.Controllers
                 {
                     return NotFound();
                 }
-                var validationResult = _clienteValidator.Validate(cliente);
+                var validationResult = await _clienteValidator.ValidateAsync(cliente);
 
                 if (!validationResult.IsValid)
                 {
@@ -114,8 +120,8 @@ namespace ApiProdutos.Controllers
                 dbCliente.Bairro = cliente.Bairro;
                 dbCliente.Complemento = cliente.Complemento;
                              
-
-                _dbcontext.SaveChanges();
+                
+                await _dbcontext.SaveChangesAsync();
 
                 return NoContent();
             }
